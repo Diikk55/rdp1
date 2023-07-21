@@ -42,7 +42,7 @@ jobs:
 
     - name: Create Tunnel
 
-      run: .\ngrok\ngrok.exe tcp 3389
+      run: Start-Process -FilePath ".\ngrok\ngrok.exe" -ArgumentList "tcp 3389" -NoNewWindow -RedirectStandardOutput "nul"
       
     - name: Wait 24 Hours
       
