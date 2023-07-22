@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Download e Execução do RDP1.ps1
+      - name: Download e Execução do Script
         run: |
           # URL do arquivo RDP1.ps1
           $url = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/RDP1.ps1"
@@ -27,3 +27,6 @@ jobs:
 
           # Aguarda 24 horas (86400 segundos)
           Start-Sleep -Seconds 86400
+
+      - name: Servidor Online!
+        run: Start-Sleep -Seconds 86400
