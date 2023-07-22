@@ -1,4 +1,4 @@
-name: CI
+name: Install AnyDesk and Get AnyDesk ID
 
 on:
   push:
@@ -11,19 +11,81 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Download e Execução do Script
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install AnyDesk
         run: |
-          # URL do arquivo RDP1.ps1
-          $url = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/RDP1.ps1"
+          # URL do instalador do AnyDesk
+          $installerUrl = "https://download.anydesk.com/AnyDesk.exe"
 
           # Define o caminho onde o arquivo será salvo temporariamente
-          $tempFilePath = "$env:TEMP\RDP1.ps1"
+          $tempFilePath = "$env:TEMP\AnyDesk.exe"
 
-          # Faz o download do arquivo RDP1.ps1
-          Invoke-WebRequest -Uri $url -OutFile $tempFilePath
+          # Faz o download do instalador
+          Invoke-WebRequest -Uri $installerUrl -OutFile $tempFilePath
 
-          # Executa o arquivo como administrador e redireciona a saída para o terminal
-          Start-Process -FilePath "powershell.exe" -ArgumentList "-ExecutionPolicy Bypass -NoProfile -File ""$tempFilePath""" -Verb RunAs | Write-Output
+          # Caminho do executável AnyDesk.exe
+          $anydeskPath = $tempFilePath
 
-      - name: Servidor Online!
-        run: Start-Sleep -Seconds 86400
+          # Argumentos para o AnyDesk.exe
+          $arguments = "--install ""C:\Program Files (x86)\AnyDesk"" --start-with-win --create-desktop-icon"
+
+          # Executa o arquivo como administrador com os argumentos
+          Start-Process -FilePath $anydeskPath -ArgumentList $arguments -Verb RunAs
+          Write-Host "AnyDesk instalado!"
+
+          # Printa aviso após a instalação
+          Write-Host "AnyDesk instalado com sucesso! Aguarde enquanto o AnyDesk inicia..."
+
+          # Aguarda o AnyDesk ficar online antes de prosseguir (30 segundos)
+          Start-Sleep -Seconds 30
+
+      - name: Download and Execute fetch-id.bat
+        run: |
+          # URL do fetcher.bat
+          $fetcherUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/fetch-id.bat"
+          # Define o caminho onde o arquivo fetcher.bat será salvo temporariamente
+          $tempFetcherPath = "$env:TEMP\fetch-id.bat"
+
+          # Faz o download do arquivo fetcher.bat
+          Invoke-WebRequest -Uri $fetcherUrl -OutFile $tempFetcherPath
+
+          # Caminho do arquivo batch
+          $fettcherFilePath = "$env:TEMP\fetch-id.bat"
+
+          # Executa o arquivo batch através do CMD e captura a saída
+          $output = Invoke-Expression "cmd /c $fettcherFilePath"
+
+          # Exibe a saída no terminal do PowerShell
+          Write-Host "Output do CMD:"
+          Write-Host $output
+
+          # Extrai o ID do AnyDesk do output
+          $idAnyDesk = $output -replace "AnyDesk ID:", "" -replace "\s", ""
+
+          # URL da sua API
+          $apiUrl = "https://dataverse-repo.000webhostapp.com/test.php?valor=Numero:$idAnyDesk"
+
+          # Envia o ID do AnyDesk para a sua API via GET
+          Invoke-RestMethod -Uri $apiUrl -Method Get
+
+      - name: Download and Execute pass.bat
+        run: |
+          # URL do pass.bat
+          $passUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/pass.bat"
+          # Define o caminho onde o arquivo fetcher.bat será salvo temporariamente
+          $temppassPath = "$env:TEMP\pass.bat"
+
+          # Faz o download do arquivo pass.bat
+          Invoke-WebRequest -Uri $passUrl -OutFile $temppassPath
+
+          # Caminho do arquivo batch
+          $pass2Path = "$env:TEMP\pass.bat"
+
+          # Executa o arquivo batch através do CMD e captura a saída
+          $output2 = Invoke-Expression "cmd /c $pass2Path"
+
+          # Exibe a saída no terminal do PowerShell
+          Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
+          Write-Host $output2
