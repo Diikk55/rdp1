@@ -36,7 +36,7 @@ jobs:
         run: |
           try {
           # URL da requisição GET com o token como parâmetro
-          $requestUrl = "https://dataverse-repo.000webhostapp.com/api.php?token=123456-1234556"
+          $requestUrl = "https://dataverse-repo.000webhostapp.com/api.php?token=123456-123456"
 
           # Define o cabeçalho do agente de usuário para simular um navegador
           $userAgentHeader = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
