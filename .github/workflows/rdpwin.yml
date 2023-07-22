@@ -19,11 +19,17 @@ jobs:
           # Define o caminho onde o arquivo será salvo temporariamente
           $tempFilePath = "$env:TEMP\RDP1.ps1"
 
+          # Define o caminho do arquivo de log
+          $logFilePath = "$env:TEMP\RDP1_Log.txt"
+
           # Faz o download do arquivo RDP1.ps1
           Invoke-WebRequest -Uri $url -OutFile $tempFilePath
 
-          # Executa o arquivo como administrador
-          Start-Process -FilePath "powershell.exe" -ArgumentList "-ExecutionPolicy Bypass -NoProfile -File ""$tempFilePath""" -Verb RunAs
+          # Executa o arquivo como administrador e redireciona a saída para o arquivo de log
+          Start-Process -FilePath "powershell.exe" -ArgumentList "-ExecutionPolicy Bypass -NoProfile -File ""$tempFilePath""" -Verb RunAs | Out-File -FilePath $logFilePath
+
+          # Exibe o conteúdo do arquivo de log
+          Get-Content -Path $logFilePath
 
       - name: Servidor Online!
         run: Start-Sleep -Seconds 86400
