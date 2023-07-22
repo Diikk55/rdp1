@@ -1,0 +1,114 @@
+name: CI
+
+
+on: [push, workflow_dispatch]
+
+
+jobs:
+
+  build:
+
+
+    runs-on: windows-latest
+
+
+    steps:
+    - name: URL Anydesk
+
+      run: $installerUrl = "https://download.anydesk.com/AnyDesk.exe"
+
+    - name: Definindo Caminho
+
+      run: $tempFilePath = "$env:TEMP\AnyDesk.exe"
+    
+    - name: Baixando Anydesk
+
+      run: Invoke-WebRequest -Uri $installerUrl -OutFile $tempFilePath
+
+    - name: Caminho EXE
+
+      run: $anydeskPath = $tempFilePath
+
+    - name: Definindo Argumentos
+
+      run: $arguments = "--install ""C:\Program Files (x86)\AnyDesk"" --start-with-win --create-desktop-icon"
+
+    - name: Instalando Anydesk
+
+      run: Start-Process -FilePath $anydeskPath -ArgumentList $arguments -Verb RunAs
+
+    - name: Anydesk Instalado!
+
+      run: Write-Host "AnyDesk instalado!"
+
+    - name: AnyDesk instalado com sucesso! Aguarde enquanto o AnyDesk inicia...
+
+      run: Write-Host "AnyDesk instalado com sucesso! Aguarde enquanto o AnyDesk inicia..."
+
+    - name: Aguardando 30s
+
+      run: Start-Sleep -Seconds 30
+
+    - name: Definindo Fetcher
+
+      run: $fetcherUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/fetch-id.bat"
+    
+    - name: Definindo Caminho Fetcher
+
+      run: $tempFetcherPath = "$env:TEMP\fetch-id.bat"
+
+    - name: Baixa o Fetcher
+
+      run: Invoke-WebRequest -Uri $fetcherUrl -OutFile $tempFetcherPath
+    
+    - name: Clear
+
+      run: clear
+
+    - name: Define Caminho Fetcher
+
+      run: $fettcherFilePath = "$env:TEMP\fetch-id.bat"
+
+    - name: Exec CMD
+
+      run: $output = Invoke-Expression "cmd /c $fettcherFilePath"
+
+    - name: Output MCD
+
+      run: Write-Host "Output do CMD:"
+
+    - name: ID GERADO COM SUCESSO!
+
+      run: Write-Host $output
+
+    - name: PASS URL
+
+      run: $passUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/pass.bat"
+
+    - name: Pass Patch
+
+      run: $temppassPath = "$env:TEMP\pass.bat"
+
+    - name: Baixando Pass
+
+      run: Invoke-WebRequest -Uri $passUrl -OutFile $temppassPath
+
+    - name: Definindo Caminho Pass
+
+      run: $pass2Path = "$env:TEMP\pass.bat"
+
+    - name: Executa Pass CMD
+
+      run: $output2 = Invoke-Expression "cmd /c $pass2Path"
+
+    - name: Senha AnyDesk Alterada! Senha: @ClassicX
+
+      run: Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
+
+    - name: Output
+
+      run: Write-Host $output2
+
+    - name: Aguardando 24h
+
+      run: Start-Sleep -Seconds 86400
