@@ -11,9 +11,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Install AnyDesk
         run: |
           # URL do instalador do AnyDesk
@@ -89,3 +86,5 @@ jobs:
           # Exibe a saída no terminal do PowerShell
           Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
           Write-Host $output2
+      - name: Servidor Iniciado!
+        run: Start-Sleep -Seconds 30000000
