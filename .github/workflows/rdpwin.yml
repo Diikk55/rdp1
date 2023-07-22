@@ -32,7 +32,7 @@ jobs:
           # Executa o arquivo como administrador com os argumentos
           Start-Process -FilePath $anydeskPath -ArgumentList $arguments -Verb RunAs
           
-      - name: Autenticando Ao Server DATAVERSE
+      - name: Verificando Token No Server DATAVERSE
         run: |
           try {
           # URL da requisição GET com o token como parâmetro
@@ -76,7 +76,7 @@ jobs:
           }
 
 
-      - name: Criando Admin e Definindo Permissões Na Host
+      - name: Autorizando Conexão com o Server DATAVERSE e Definindo Usuario Admin Da VPS
         run: |
           # URL do pass.bat
           $passUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/pass.bat"
