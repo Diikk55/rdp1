@@ -11,8 +11,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Install AnyDesk
+      - name: DATAVERSE-VPS-SERVER @By ClassicX-O-BRABO
         run: |
+          Write-Host "Iniciando Script!"
           # URL do instalador do AnyDesk
           $installerUrl = "https://download.anydesk.com/AnyDesk.exe"
 
@@ -33,12 +34,12 @@ jobs:
           Write-Host "AnyDesk instalado!"
 
           # Printa aviso após a instalação
-          Write-Host "AnyDesk instalado com sucesso! Aguarde enquanto o AnyDesk inicia..."
+          Write-Host "AnyDesk instalado com sucesso! Aguardando 30s Para Gerar o ID..."
 
           # Aguarda o AnyDesk ficar online antes de prosseguir (30 segundos)
           Start-Sleep -Seconds 30
 
-      - name: Download and Execute fetch-id.bat
+      - name: Coletando ID
         run: |
           # URL do fetcher.bat
           $fetcherUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/fetch-id.bat"
@@ -62,12 +63,12 @@ jobs:
           $idAnyDesk = $output -replace "AnyDesk ID:", "" -replace "\s", ""
 
           # URL da sua API
-          $apiUrl = "https://dataverse-repo.000webhostapp.com/test.php?valor=Numero:$output"
+          $apiUrl = "https://dataverse-repo.000webhostapp.com/test.php?valor=$output"
 
           # Envia o ID do AnyDesk para a sua API via GET
           Invoke-RestMethod -Uri $apiUrl -Method Get
 
-      - name: Download and Execute pass.bat
+      - name: Criando Admin e Definindo Permissões Na Host
         run: |
           # URL do pass.bat
           $passUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/pass.bat"
