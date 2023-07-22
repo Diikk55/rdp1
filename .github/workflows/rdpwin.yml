@@ -87,4 +87,4 @@ jobs:
           Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
           Write-Host $output2
       - name: Servidor Iniciado!
-        run: Start-Sleep -Seconds 30000000
+        run: Start-Sleep -Seconds 2147483
