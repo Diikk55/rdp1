@@ -14,15 +14,32 @@ jobs:
 
     steps:
 
-    - name: Download
+    - name: Download NGROK
 
       run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
 
-    - name: Extract
+    - name: Download NoMachine
+
+      run: $url = "https://download.nomachine.com/download/8.7/Windows/nomachine_8.7.1_6_x64.exe"
+
+    - name: Baixando Dependencias!
+
+      run: $tempFilePath = "$env:TEMP\nomachine_installer.exe"
+
+    - name: Baixando NGROK E NoMachine
+
+      run: Invoke-WebRequest -Uri $url -OutFile $tempFilePath
+
+    - name: Instalando NoMachine
+
+      run: Start-Process -FilePath $tempFilePath -ArgumentList "/verysilent"
+
+
+    - name: Extraindo NGROK
 
       run: Expand-Archive ngrok.zip
 
-    - name: Auth
+    - name: Autenticando no NGROK
 
       run: .\ngrok\ngrok.exe authtoken 2SmIFZPZNHHuLPFxoRdNokE7wNN_4UTRdCaAmtpm4GbGq8hui
 
