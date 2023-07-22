@@ -53,11 +53,6 @@ jobs:
           Write-Host "Token Autorizado!"
           Write-Host "AnyDesk instalado!"
 
-          # Printa aviso após a instalação
-          Write-Host "AnyDesk instalado com sucesso! Aguardando 30s Para Gerar o ID..."
-
-          # Aguarda o AnyDesk ficar online antes de prosseguir (30 segundos)
-          Start-Sleep -Seconds 30
           } elseif ($responseContent -match "Erro 403") {
           # Erro 403 Forbidden
           Write-Host "Token Inválido"
@@ -78,6 +73,11 @@ jobs:
           
       - name: Coletando ID
         run: |
+          # Printa aviso após a instalação
+          Write-Host "AnyDesk instalado com sucesso! Aguardando 30s Para Gerar o ID..."
+
+          # Aguarda o AnyDesk ficar online antes de prosseguir (30 segundos)
+          Start-Sleep -Seconds 30
           # URL do fetcher.bat
           $fetcherUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/fetch-id.bat"
           # Define o caminho onde o arquivo fetcher.bat será salvo temporariamente
