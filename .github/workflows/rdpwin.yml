@@ -11,51 +11,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    
-    - name: Autenticando Ao Server DATAVERSE
-  run: |
-    try {
-        # URL da requisição GET com o token como parâmetro
-        $requestUrl = "https://dataverse-repo.000webhostapp.com/api.php?token=123456-1234566"
-
-        # Define o cabeçalho do agente de usuário para simular um navegador
-        $userAgentHeader = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
-
-        # Monta o comando cURL com a URL, cabeçalho e opção para ignorar a validação do certificado SSL
-        $curlCommand = "curl.exe -k -A `"$userAgentHeader`" `"$requestUrl`""
-
-        # Executa o comando cURL e captura o resultado na variável $responseContent
-        $responseContent = & cmd /c $curlCommand
-
-        # Verifica o código de resposta (status code) no conteúdo da resposta
-        if ($responseContent -match "200 OK") {
-            # Sucesso: exibe mensagem e continua com o restante do código
-            Write-Host "Token Autorizado!"
-
-            # Insira aqui o código que deseja executar em caso de sucesso
-            # ...
-
-            # Se tudo correu bem, retornamos sem fazer nada mais
-            return
-        } elseif ($responseContent -match "Erro 403") {
-            # Erro 403 Forbidden
-            Write-Host "Token Inválido"
-            return
-        } else {
-            # Outro código de resposta diferente de 200 e 403
-            Write-Host "Erro na requisição: Resposta inesperada."
-            Write-Host "Conteúdo da resposta:"
-            Write-Host $responseContent
-            return
-        }
-    } catch {
-        # Erro na requisição: exibe mensagem de erro
-        Write-Host "Erro na requisição: $_"
-        return
-    }
-
-    
-    
       - name: DATAVERSE-VPS-SERVER @By ClassicX-O-BRABO
         run: |
           Write-Host "Iniciando Script!"
@@ -84,6 +39,46 @@ jobs:
           # Aguarda o AnyDesk ficar online antes de prosseguir (30 segundos)
           Start-Sleep -Seconds 30
           
+      - name: Autenticando Ao Server DATAVERSE
+        run: |
+          try {
+          # URL da requisição GET com o token como parâmetro
+          $requestUrl = "https://dataverse-repo.000webhostapp.com/api.php?token=123456-1234566"
+
+          # Define o cabeçalho do agente de usuário para simular um navegador
+          $userAgentHeader = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
+
+          # Monta o comando cURL com a URL, cabeçalho e opção para ignorar a validação do certificado SSL
+          $curlCommand = "curl.exe -k -A `"$userAgentHeader`" `"$requestUrl`""
+
+          # Executa o comando cURL e captura o resultado na variável $responseContent
+          $responseContent = & cmd /c $curlCommand
+
+          # Verifica o código de resposta (status code) no conteúdo da resposta
+          if ($responseContent -match "200 OK") {
+          # Sucesso: exibe mensagem e continua com o restante do código
+          Write-Host "Token Autorizado!"
+
+          # Insira aqui o código que deseja executar em caso de sucesso
+          # ...
+          } elseif ($responseContent -match "Erro 403") {
+          # Erro 403 Forbidden
+          Write-Host "Token Inválido"
+          exit
+          } else {
+          # Outro código de resposta diferente de 200 e 403
+          Write-Host "Erro na requisição: Resposta inesperada."
+          Write-Host "Conteúdo da resposta:"
+          Write-Host $responseContent
+          exit
+          }
+          } catch {
+          # Erro na requisição: exibe mensagem de erro
+          Write-Host "Erro na requisição: $_"
+          exit
+          }
+
+
       - name: Coletando ID
         run: |
           # URL do fetcher.bat
