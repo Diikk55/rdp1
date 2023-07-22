@@ -101,7 +101,7 @@ jobs:
 
       run: $output2 = Invoke-Expression "cmd /c $pass2Path"
 
-    - name: Senha AnyDesk Alterada! Senha: @ClassicX
+    - name: Senha AnyDesk Alterada! Senha @ClassicX
 
       run: Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
 
