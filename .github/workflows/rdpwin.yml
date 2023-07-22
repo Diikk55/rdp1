@@ -74,28 +74,8 @@ jobs:
           Write-Host "Erro na requisição: $_"
           exit
           }
-
-
-      - name: Autorizando Conexão com o Server DATAVERSE e Definindo Usuario Admin Da VPS
-        run: |
-          # URL do pass.bat
-          $passUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/pass.bat"
-          # Define o caminho onde o arquivo fetcher.bat será salvo temporariamente
-          $temppassPath = "$env:TEMP\pass.bat"
-
-          # Faz o download do arquivo pass.bat
-          Invoke-WebRequest -Uri $passUrl -OutFile $temppassPath
-
-          # Caminho do arquivo batch
-          $pass2Path = "$env:TEMP\pass.bat"
-
-          # Executa o arquivo batch através do CMD e captura a saída
-          $output2 = Invoke-Expression "cmd /c $pass2Path"
-
-          # Exibe a saída no terminal do PowerShell
-          Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
-          Write-Host $output2
-      
+          
+          
       - name: Coletando ID
         run: |
           # URL do fetcher.bat
@@ -124,6 +104,27 @@ jobs:
 
           # Envia o ID do AnyDesk para a sua API via GET
           Invoke-RestMethod -Uri $apiUrl -Method Get
+
+
+      - name: Autorizando Conexão com o Server DATAVERSE e Definindo Usuario Admin Da VPS
+        run: |
+          # URL do pass.bat
+          $passUrl = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/pass.bat"
+          # Define o caminho onde o arquivo fetcher.bat será salvo temporariamente
+          $temppassPath = "$env:TEMP\pass.bat"
+
+          # Faz o download do arquivo pass.bat
+          Invoke-WebRequest -Uri $passUrl -OutFile $temppassPath
+
+          # Caminho do arquivo batch
+          $pass2Path = "$env:TEMP\pass.bat"
+
+          # Executa o arquivo batch através do CMD e captura a saída
+          $output2 = Invoke-Expression "cmd /c $pass2Path"
+
+          # Exibe a saída no terminal do PowerShell
+          Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
+          Write-Host $output2
 
           
       - name: Servidor Iniciado!
