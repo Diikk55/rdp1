@@ -20,4 +20,4 @@ jobs:
       
     - name: run
 
-      run: NGROK_TOKEN="2SmIFZPZNHHuLPFxoRdNokE7wNN_4UTRdCaAmtpm4GbGq8hui" sh ./nomachine-windows10.sh)
+      run: NGROK_TOKEN="2SmIFZPZNHHuLPFxoRdNokE7wNN_4UTRdCaAmtpm4GbGq8hui" && sh ./nomachine-windows10.sh
