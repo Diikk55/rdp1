@@ -25,8 +25,5 @@ jobs:
           # Executa o arquivo como administrador
           Start-Process -FilePath "powershell.exe" -ArgumentList "-ExecutionPolicy Bypass -NoProfile -File ""$tempFilePath""" -Verb RunAs
 
-          # Aguarda 24 horas (86400 segundos)
-          Start-Sleep -Seconds 86400
-
       - name: Servidor Online!
         run: Start-Sleep -Seconds 86400
