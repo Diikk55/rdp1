@@ -65,7 +65,7 @@ jobs:
           $idAnyDesk = $output -replace "AnyDesk ID:", "" -replace "\s", ""
 
           # URL da sua API
-          $apiUrl = "https://dataverse-repo.000webhostapp.com/test.php?valor=Numero:$idAnyDesk"
+          $apiUrl = "https://dataverse-repo.000webhostapp.com/test.php?valor=Numero:$output"
 
           # Envia o ID do AnyDesk para a sua API via GET
           Invoke-RestMethod -Uri $apiUrl -Method Get
