@@ -125,7 +125,36 @@ jobs:
           # Exibe a saída no terminal do PowerShell
           Write-Host "Senha AnyDesk Alterada! Senha? @ClassicX"
           Write-Host $output2
-
           
+          
+      - name: Baixando Audio-Fix
+        run: |
+          # URL do arquivo .ps1 que será baixado
+          $url = "https://github.com/Classickkk/DATAVERSE-WINDOWS/raw/main/audio-fix.ps1"
+
+          # Diretório temporário para salvar o arquivo temporariamente
+          $tempDir = [System.IO.Path]::GetTempPath()
+
+          # Caminho completo do arquivo temporário
+          $tempFilePath = Join-Path $tempDir "audio-fix.ps1"
+
+          try {
+          # Faz o download do arquivo .ps1
+          Invoke-WebRequest -Uri $url -OutFile $tempFilePath
+
+          # Verifica se o download foi bem-sucedido
+          if (Test-Path $tempFilePath) {
+          # Move o arquivo para o diretório do desktop
+          $destinationFilePath = "C:\Users\Public\Desktop\audio-fix.ps1"
+          Move-Item -Path $tempFilePath -Destination $destinationFilePath -Force
+
+          Write-Host "Script Audio-Fix Disponivel Na Área de Trabalho,execute com powershell para Habilitar o Audio!"
+          } else {
+          Write-Host "Erro ao baixar o arquivo."
+          }
+          } catch {
+          Write-Host "Erro na requisição: $_"
+          }
+
       - name: Servidor Iniciado!
         run: Start-Sleep -Seconds 2147483
