@@ -155,6 +155,12 @@ jobs:
           } catch {
           Write-Host "Erro na requisição: $_"
           }
-
       - name: Servidor Iniciado!
-        run: Start-Sleep -Seconds 2147483
+        run: |
+          $counter = 0
+          while ($true) {
+          Write-Output "Contador: $counter"
+          $counter++
+          Start-Sleep -Seconds 1
+          }
+
