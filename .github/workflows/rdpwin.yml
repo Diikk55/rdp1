@@ -1,10 +1,10 @@
-name: Install AnyDesk and Get AnyDesk ID
+name: VPS ANYDESK WINDOWS By @ClassicX-O-BRABO
 
 on:
   push:
     branches:
-      - main  # Defina a branch desejada para acionar o CI
-  workflow_dispatch:  # Isso permite acionar manualmente o CI pelo GitHub
+      - main  
+  workflow_dispatch:  
 
 jobs:
   build:
